@@ -15,7 +15,7 @@ type MainTestSuite struct {
 	gen *rand.Rand
 }
 
-func TestMainTestSuite(t *testing.T) {
+func Test_MainTestSuite(t *testing.T) {
 	suite.Run(t, new(MainTestSuite))
 }
 
@@ -37,7 +37,7 @@ func (suite *MainTestSuite) TearDownTest() {
 	fmt.Println("Tear down test")
 }
 
-func (suite *MainTestSuite) TestGen() {
+func (suite *MainTestSuite) Test_Gen() {
 	const n = 1<<63 - 1
 
 	x := suite.gen.Intn(n)

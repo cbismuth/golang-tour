@@ -4,7 +4,7 @@ go_library(
     name = "src_lib",
     srcs = [
         "main.go",
-        "strutils.go",
+        "rnd_utils.go",
     ],
     importpath = "github.com/cbismuth/golang-tour/src",
     visibility = ["//visibility:private"],
@@ -18,7 +18,18 @@ go_binary(
 
 go_test(
     name = "src_test",
-    srcs = ["main_test.go"],
+    srcs = [
+        "main_test.go",
+        "tour_01_welcome_test.go",
+        "tour_02_basics_test.go",
+        "tour_03_flowcontrol_test.go",
+        "tour_04_moretypes_test.go",
+    ],
     embed = [":src_lib"],
-    deps = ["@com_github_stretchr_testify//suite"],
+    deps = [
+        "@com_github_stretchr_testify//assert",
+        "@com_github_stretchr_testify//suite",
+        "@org_golang_x_tour//pic",
+        "@org_golang_x_tour//wc",
+    ],
 )

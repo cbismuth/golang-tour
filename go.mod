@@ -1,8 +1,9 @@
 module github.com/cbismuth/golang-tour
 
-go 1.22.2
+go 1.22.3
 
 require github.com/stretchr/testify v1.9.0
+require golang.org/x/tour v0.1.0
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect

@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-const LETTERS string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const ALPHANUM string = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 func NewRandomString() string {
 	length := 64
@@ -14,7 +14,7 @@ func NewRandomString() string {
 }
 
 func NewRandomStringWithLen(length int) string {
-	gen := rand.New(rand.NewSource(time.Now().UnixNano()))
+	gen := NewRndGen()
 
 	return NewRandomStringWithGen(length, gen)
 }
@@ -25,11 +25,15 @@ func NewRandomStringWithGen(length int, gen *rand.Rand) string {
 	// 128 unique characters.
 	b := make([]byte, length)
 	for i := range b {
-		b[i] = LETTERS[gen.Intn(len(LETTERS))]
+		b[i] = ALPHANUM[gen.Intn(len(ALPHANUM))]
 	}
 	return string(b)
 }
 
-func SwapStringTuple(s1, s2 string) (string, string) {
-	return s2, s1
+func NewRndGen() *rand.Rand {
+	now := time.Now().UnixNano()
+	src := rand.NewSource(now)
+	gen := rand.New(src)
+
+	return gen
 }
