@@ -2,7 +2,14 @@
 
 [![Go](https://github.com/cbismuth/golang-tour/actions/workflows/go.yaml/badge.svg)](https://github.com/cbismuth/golang-tour/actions/workflows/go.yaml)
 
-Here is my pretty own template to hack and learn on the Go programming language.
+Here is my pretty own repository to hack and learn from the Go [Tour](https://go.dev/tour).
+
+## Unit tests
+
+* [Welcome](src/tour_01_welcome_test.go) (see playground [here](https://go.dev/tour/welcome/1))
+* [Basics](src/tour_02_basics_test.go) (see playground [here](https://go.dev/tour/basics/1))
+* [Flow Control](src/tour_03_flowcontrol_test.go) (see playground [here](https://go.dev/tour/flowcontrol/1))
+* [More Types](src/tour_04_moretypes_test.go) (see playground [here](https://go.dev/tour/moretypes/1))
 
 ## Go local setup
 

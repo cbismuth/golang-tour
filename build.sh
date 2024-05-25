@@ -46,6 +46,3 @@ bazelisk query //...
 
 log "Running main target ..."
 ./bazel-bin/src/src_/src
-
-log "Running Tour chapter 1 exercice 1 ..."
-bazelisk run //src/ch1ex1:ch1ex1

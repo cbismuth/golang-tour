@@ -1,4 +1,4 @@
-GOLANG_VERSION = "1.22.2"
+GOLANG_VERSION = "1.22.3"
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 

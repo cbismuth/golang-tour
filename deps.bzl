@@ -37,3 +37,9 @@ def go_dependencies():
         sum = "h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=",
         version = "v3.0.1",
     )
+    go_repository(
+        name = "org_golang_x_tour",
+        importpath = "golang.org/x/tour",
+        sum = "h1:OWzbINRoGf1wwBhKdFDpYwM88NM0d1SL/Nj6PagS6YE=",
+        version = "v0.1.0",
+    )
