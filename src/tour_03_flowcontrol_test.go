@@ -10,24 +10,24 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const n int = 10
+const FlowControlMax int = 10
 
 func Test_FlowControl1(t *testing.T) {
 	sum := 0
-	for i := 0; i < n; i++ {
+	for i := 0; i < FlowControlMax; i++ {
 		sum++
 	}
 
-	assert.Equal(t, n, sum)
+	assert.Equal(t, FlowControlMax, sum)
 }
 
 func Test_FlowControl2(t *testing.T) {
 	sum := 0
-	for sum < n {
+	for sum < FlowControlMax {
 		sum++
 	}
 
-	assert.Equal(t, n, sum)
+	assert.Equal(t, FlowControlMax, sum)
 }
 
 func Test_FlowControl3(t *testing.T) {
@@ -47,13 +47,13 @@ func Test_FlowControl4(t *testing.T) {
 		sum++
 	}
 
-	assert.Equal(t, n, sum)
+	assert.Equal(t, FlowControlMax, sum)
 }
 
 func Test_FlowControl5(t *testing.T) {
 	gen := NewRndGen()
 
-	for i := 0; i < n; i++ {
+	for i := 0; i < FlowControlMax; i++ {
 		var fact float64
 		if i%2 == 0 {
 			fact = 1.0
@@ -73,19 +73,19 @@ func Test_FlowControl5(t *testing.T) {
 }
 
 func Test_FlowControl6(t *testing.T) {
-	for i := 0; i < n; i++ {
-		if pow := math.Pow(float64(i), float64(i)); pow > float64(n) {
-			assert.Greater(t, pow, float64(n))
+	for i := 0; i < FlowControlMax; i++ {
+		if pow := math.Pow(float64(i), float64(i)); pow > float64(FlowControlMax) {
+			assert.Greater(t, pow, float64(FlowControlMax))
 		}
 	}
 }
 
 func Test_FlowControl7(t *testing.T) {
-	for i := 0; i < n; i++ {
-		if pow := math.Pow(float64(i), float64(i)); pow > float64(n) {
-			assert.Greater(t, pow, float64(n))
+	for i := 0; i < FlowControlMax; i++ {
+		if pow := math.Pow(float64(i), float64(i)); pow > float64(FlowControlMax) {
+			assert.Greater(t, pow, float64(FlowControlMax))
 		} else {
-			assert.LessOrEqual(t, pow, float64(n))
+			assert.LessOrEqual(t, pow, float64(FlowControlMax))
 		}
 	}
 }

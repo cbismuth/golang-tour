@@ -4,7 +4,7 @@ go_library(
     name = "src_lib",
     srcs = [
         "main.go",
-        "rnd_utils.go",
+        "tour_utils.go",
     ],
     importpath = "github.com/cbismuth/golang-tour/src",
     visibility = ["//visibility:private"],
@@ -24,6 +24,8 @@ go_test(
         "tour_02_basics_test.go",
         "tour_03_flowcontrol_test.go",
         "tour_04_moretypes_test.go",
+        "tour_05_methods_test.go",
+        "tour_utils_test.go",
     ],
     embed = [":src_lib"],
     deps = [

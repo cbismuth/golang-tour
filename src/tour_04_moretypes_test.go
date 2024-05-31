@@ -11,22 +11,6 @@ import (
 	"golang.org/x/tour/wc"
 )
 
-type Vertex struct {
-	X, Y int
-}
-
-type LatLong struct {
-	Lat, Long float64
-}
-
-const pin1 string = "Bell Labs"
-const lat1 float64 = 40.68433
-const long1 float64 = -74.39967
-
-const pin2 string = "Google"
-const lat2 float64 = 37.42202
-const long2 float64 = -122.08408
-
 func Test_MoreTypes1(t *testing.T) {
 	gen := NewRndGen()
 
@@ -41,56 +25,56 @@ func Test_MoreTypes1(t *testing.T) {
 }
 
 func Test_MoreTypes2(t *testing.T) {
-	v := Vertex{1, 2}
+	v := Vertex{1.0, 2.0}
 
-	assert.Equal(t, 1, v.X)
-	assert.Equal(t, 2, v.Y)
+	assert.Equal(t, 1.0, v.X)
+	assert.Equal(t, 2.0, v.Y)
 }
 
 func Test_MoreTypes3(t *testing.T) {
-	v := Vertex{1, 2}
+	v := Vertex{1.0, 2.0}
 
 	v.X = 3
 	v.Y = 4
 
-	assert.Equal(t, 3, v.X)
-	assert.Equal(t, 4, v.Y)
+	assert.Equal(t, 3.0, v.X)
+	assert.Equal(t, 4.0, v.Y)
 }
 
 func Test_MoreTypes4(t *testing.T) {
-	v := Vertex{1, 2}
+	v := Vertex{1.0, 2.0}
 
 	p := &v
 
-	assert.Equal(t, 1, (*p).X)
-	assert.Equal(t, 2, (*p).Y)
+	assert.Equal(t, 1.0, (*p).X)
+	assert.Equal(t, 2.0, (*p).Y)
 
-	assert.Equal(t, 1, p.X)
-	assert.Equal(t, 2, p.Y)
+	assert.Equal(t, 1.0, p.X)
+	assert.Equal(t, 2.0, p.Y)
 }
 
 func Test_MoreTypes5(t *testing.T) {
-	v1 := Vertex{1, 2}
-	assert.Equal(t, 1, v1.X)
-	assert.Equal(t, 2, v1.Y)
+	v1 := Vertex{1.0, 2.0}
+	assert.Equal(t, 1.0, v1.X)
+	assert.Equal(t, 2.0, v1.Y)
 
-	v2 := Vertex{X: 1}
-	assert.Equal(t, 1, v2.X)
-	assert.Equal(t, 0, v2.Y)
+	v2 := Vertex{X: 1.0}
+	assert.Equal(t, 1.0, v2.X)
+	assert.Equal(t, 0.0, v2.Y)
 
-	v3 := Vertex{X: 1, Y: 2}
-	assert.Equal(t, 1, v3.X)
-	assert.Equal(t, 2, v3.Y)
+	v3 := Vertex{X: 1.0, Y: 2.0}
+	assert.Equal(t, 1.0, v3.X)
+	assert.Equal(t, 2.0, v3.Y)
 
 	v4 := Vertex{}
-	assert.Equal(t, 0, v4.X)
-	assert.Equal(t, 0, v4.Y)
+	assert.Equal(t, 0.0, v4.X)
+	assert.Equal(t, 0.0, v4.Y)
 
 	p := &Vertex{}
-	assert.Equal(t, 0, (*p).X)
-	assert.Equal(t, 0, (*p).Y)
-	assert.Equal(t, 0, p.X)
-	assert.Equal(t, 0, p.Y)
+	assert.Equal(t, 0.0, (*p).X)
+	assert.Equal(t, 0.0, (*p).Y)
+	assert.Equal(t, 0.0, p.X)
+	assert.Equal(t, 0.0, p.Y)
 	assert.Equal(t, "*main.Vertex", reflect.TypeOf(p).String())
 	assert.Equal(t, "main.Vertex", reflect.TypeOf(*p).String())
 }
@@ -231,9 +215,8 @@ func Test_MoreTypes18(t *testing.T) {
 }
 
 func FnMoreTypes18(dx, dy int) [][]uint8 {
-	var a [][]uint8
+	var a = make([][]uint8, dx)
 
-	a = make([][]uint8, dx)
 	for x := range dx {
 		a[x] = make([]uint8, dy)
 		for y := range dy {
@@ -245,24 +228,24 @@ func FnMoreTypes18(dx, dy int) [][]uint8 {
 }
 
 func Test_MoreTypes19(t *testing.T) {
-	m := make(map[string]LatLong)
+	m := make(map[string]Vertex)
 
-	m[pin1] = LatLong{lat1, long1}
-	assert.Equal(t, lat1, m[pin1].Lat)
-	assert.Equal(t, long1, m[pin1].Long)
+	m["Bell Labs"] = Vertex{BellLabs.X, BellLabs.Y}
+	assert.Equal(t, BellLabs.X, m["Bell Labs"].X)
+	assert.Equal(t, BellLabs.Y, m["Bell Labs"].Y)
 }
 
 func Test_MoreTypes20(t *testing.T) {
-	m := map[string]LatLong{
-		pin1: {lat1, long1},
-		pin2: {lat2, long2},
+	m := map[string]Vertex{
+		"Bell Labs": {BellLabs.X, BellLabs.Y},
+		"Google":    {Google.X, Google.Y},
 	}
 
-	assert.Equal(t, lat1, m[pin1].Lat)
-	assert.Equal(t, long1, m[pin1].Long)
+	assert.Equal(t, BellLabs.X, m["Bell Labs"].X)
+	assert.Equal(t, BellLabs.Y, m["Bell Labs"].Y)
 
-	assert.Equal(t, lat2, m[pin2].Lat)
-	assert.Equal(t, long2, m[pin2].Long)
+	assert.Equal(t, Google.X, m["Google"].X)
+	assert.Equal(t, Google.Y, m["Google"].Y)
 }
 
 func Test_MoreTypes21(t *testing.T) {
@@ -272,20 +255,20 @@ func Test_MoreTypes21(t *testing.T) {
 }
 
 func Test_MoreTypes22(t *testing.T) {
-	m := make(map[string]LatLong)
+	m := make(map[string]Vertex)
 
-	m[pin1] = LatLong{lat1, long1}
-	assert.Equal(t, lat1, m[pin1].Lat)
-	assert.Equal(t, long1, m[pin1].Long)
+	m["Bell Labs"] = Vertex{BellLabs.X, BellLabs.Y}
+	assert.Equal(t, BellLabs.X, m["Bell Labs"].X)
+	assert.Equal(t, BellLabs.Y, m["Bell Labs"].Y)
 
-	e, ok := m[pin1]
+	e, ok := m["Bell Labs"]
 	assert.True(t, ok)
-	assert.Equal(t, lat1, e.Lat)
-	assert.Equal(t, long1, e.Long)
+	assert.Equal(t, BellLabs.X, e.X)
+	assert.Equal(t, BellLabs.Y, e.Y)
 
-	delete(m, pin1)
-	assert.Equal(t, 0.0, m[pin1].Lat)
-	assert.Equal(t, 0.0, m[pin1].Long)
+	delete(m, "Bell Labs")
+	assert.Equal(t, 0.0, m["Bell Labs"].X)
+	assert.Equal(t, 0.0, m["Bell Labs"].Y)
 }
 
 func Test_MoreTypes23(t *testing.T) {

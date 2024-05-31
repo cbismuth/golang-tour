@@ -10,6 +10,11 @@ Here is my pretty own repository to hack and learn from the Go [Tour](https://go
 * [Basics](src/tour_02_basics_test.go) (see playground [here](https://go.dev/tour/basics/1))
 * [Flow Control](src/tour_03_flowcontrol_test.go) (see playground [here](https://go.dev/tour/flowcontrol/1))
 * [More Types](src/tour_04_moretypes_test.go) (see playground [here](https://go.dev/tour/moretypes/1))
+* [Methods](src/tour_05_methods_test.go) (see playground [here](https://go.dev/tour/methods/1))
+
+### Utilities
+
+See [tour_utils.go](src/tour_utils.go) for miscellaneous utilities: random generators, floating-point, deep copying ...
 
 ## Go local setup
 
