@@ -11,6 +11,7 @@ Here is my pretty own repository to hack and learn from the Go [Tour](https://go
 * [Flow Control](src/tour_03_flowcontrol_test.go) (see playground [here](https://go.dev/tour/flowcontrol/1))
 * [More Types](src/tour_04_moretypes_test.go) (see playground [here](https://go.dev/tour/moretypes/1))
 * [Methods](src/tour_05_methods_test.go) (see playground [here](https://go.dev/tour/methods/1))
+* [Generics](src/tour_06_generics_test.go) (see playground [here](https://go.dev/tour/generics/1))
 
 ### Utilities
 

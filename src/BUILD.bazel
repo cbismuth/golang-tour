@@ -25,6 +25,7 @@ go_test(
         "tour_03_flowcontrol_test.go",
         "tour_04_moretypes_test.go",
         "tour_05_methods_test.go",
+        "tour_06_generics_test.go",
         "tour_utils_test.go",
     ],
     embed = [":src_lib"],

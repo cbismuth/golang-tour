@@ -9,6 +9,7 @@ import (
 	"math"
 	"math/rand"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -166,6 +167,40 @@ func (i MyImage) At(x int, y int) color.Color {
 	}
 
 	return color.White
+}
+
+func Index[T comparable](s []T, x T) int {
+	for i, v := range s {
+		if v == x {
+			return i
+		}
+	}
+	return -1
+}
+
+type List[T any] struct {
+	next  *List[T]
+	value T
+}
+
+func (l *List[T]) AddFirst(value T) {
+	tmp := &List[T]{l.next, l.value}
+
+	l.next = tmp
+	l.value = value
+}
+
+func (l *List[T]) Sprintf(format string) string {
+	s := ""
+
+	i := l
+	for i != nil {
+		s += " " + fmt.Sprintf(format, i.value)
+
+		i = i.next
+	}
+
+	return strings.TrimSpace(s)
 }
 
 const ALPHANUM string = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
