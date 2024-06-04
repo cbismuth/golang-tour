@@ -151,11 +151,11 @@ func Test_Methods8(t *testing.T) {
 
 func Test_Methods9(t *testing.T) {
 	v := Vertex{}
-	absType := reflect.TypeOf((*HasAbs)(nil)).Elem()
+	absType := reflect.TypeOf((*Abser)(nil)).Elem()
 	implements := reflect.TypeOf(&v).Implements(absType)
 	assert.True(t, implements)
 
-	assert.Implements(t, (*HasAbs)(nil), new(Vertex))
+	assert.Implements(t, (*Abser)(nil), new(Vertex))
 }
 
 func Test_Methods10(t *testing.T) {
@@ -196,7 +196,7 @@ func Test_Methods14(t *testing.T) {
 }
 
 func Test_Methods15(t *testing.T) {
-	var v1 HasAbs
+	var v1 Abser
 	v1 = &Google
 
 	v2, ok := v1.(*Vertex)
@@ -209,7 +209,7 @@ func Test_Methods15(t *testing.T) {
 }
 
 func Test_Methods16(t *testing.T) {
-	var v HasAbs
+	var v Abser
 	v = &Google
 
 	switch v.(type) {

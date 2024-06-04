@@ -10,14 +10,17 @@ import (
 	"math/rand"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
+
+	"golang.org/x/tour/tree"
 )
 
 type I interface {
 	nop() int
 }
 
-type HasAbs interface {
+type Abser interface {
 	Abs() float64
 }
 
@@ -135,9 +138,9 @@ func (r *Rot13Reader) Read(b []byte) (int, error) {
 	for i := 0; i < n; i++ {
 		switch {
 		case a <= b[i] && b[i] <= z:
-			b[i] = ((b[i]-a)+13)%26 + a
+			b[i] = a + ((b[i]-a)+13)%26
 		case A <= b[i] && b[i] <= Z:
-			b[i] = ((b[i]-A)+13)%26 + A
+			b[i] = A + ((b[i]-A)+13)%26
 		}
 	}
 
@@ -201,6 +204,182 @@ func (l *List[T]) Sprintf(format string) string {
 	}
 
 	return strings.TrimSpace(s)
+}
+
+func SumStream(a []int, ch chan int) {
+	sum := 0
+
+	for _, v := range a {
+		sum += v
+	}
+
+	ch <- sum
+}
+
+func FibonacciCallback() func() int {
+	x := 0
+	y := 1
+
+	return func() int {
+		defer func() { x, y = y, x+y }()
+		return x
+	}
+}
+
+func FibonacciStream(ch, quit chan int) {
+	x, y := 0, 1
+	for {
+		select {
+		case ch <- x:
+			x, y = y, x+y
+		case <-quit:
+			fmt.Println("quit")
+			return
+		}
+	}
+}
+
+func Walk(t *tree.Tree, ch chan int) {
+	defer close(ch)
+
+	WalkRecursive(t, ch)
+}
+
+func WalkRecursive(t *tree.Tree, ch chan int) {
+	if t == nil {
+		return
+	}
+
+	WalkRecursive(t.Left, ch)
+	ch <- t.Value
+	WalkRecursive(t.Right, ch)
+}
+
+func Same(t1, t2 *tree.Tree) bool {
+	ch1, ch2 := make(chan int), make(chan int)
+
+	go Walk(t1, ch1)
+	go Walk(t2, ch2)
+
+	for {
+		x1, ok1 := <-ch1
+		x2, ok2 := <-ch2
+
+		if ok1 != ok2 || x1 != x2 {
+			return false
+		}
+
+		if !ok1 || !ok2 {
+			break
+		}
+	}
+
+	return true
+}
+
+type SafeCounter struct {
+	lock     sync.Mutex
+	counters map[string]int
+}
+
+func (sc *SafeCounter) GetValue(key string) int {
+	sc.lock.Lock()
+	defer sc.lock.Unlock()
+
+	return sc.counters[key]
+}
+
+func (sc *SafeCounter) Increment(key string) {
+	sc.lock.Lock()
+	defer sc.lock.Unlock()
+
+	sc.counters[key]++
+}
+
+func Crawl(url string, depth int, fetcher Fetcher, fetchResults *FetchResults) {
+	if depth < 0 || len(url) == 0 {
+		return
+	}
+
+	fetchResults.lock.Lock()
+	_, ok := fetchResults.results[url]
+	if ok {
+		return
+	}
+	fetchResults.lock.Unlock()
+
+	res, err := fetcher.Fetch(url)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fetchResults.lock.Lock()
+	fetchResults.results[url] = res
+	fetchResults.lock.Unlock()
+
+	fmt.Println(url)
+
+	for _, child := range res.urls {
+		go Crawl(child, depth-1, fetcher, fetchResults)
+	}
+}
+
+type Fetcher interface {
+	Fetch(url string) (res *FetchResult, err error)
+}
+
+type FetchResults struct {
+	lock    sync.Mutex
+	results map[string]*FetchResult
+}
+
+type FetchResult struct {
+	body string
+	urls []string
+}
+
+type FetcherMock struct{}
+
+func (_ *FetcherMock) Fetch(url string) (res *FetchResult, err error) {
+	switch url {
+	case "https://golang.org/":
+		return &FetchResult{
+			"The Go Programming Language",
+			[]string{
+				"https://golang.org/pkg/",
+				"https://golang.org/cmd/",
+			},
+		}, nil
+	case "https://golang.org/pkg/":
+		return &FetchResult{
+			"Packages",
+			[]string{
+				"https://golang.org/",
+				"https://golang.org/cmd/",
+				"https://golang.org/pkg/fmt/",
+				"https://golang.org/pkg/os/",
+			},
+		}, nil
+	case "https://golang.org/pkg/fmt/":
+		return &FetchResult{
+			"Package fmt",
+			[]string{
+				"https://golang.org/",
+				"https://golang.org/pkg/",
+			},
+		}, nil
+	case "https://golang.org/pkg/os/":
+		return &FetchResult{
+			"Package os",
+			[]string{
+				"https://golang.org/",
+				"https://golang.org/pkg/",
+			},
+		}, nil
+	default:
+		return &FetchResult{"", []string{}}, nil
+	}
 }
 
 const ALPHANUM string = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"

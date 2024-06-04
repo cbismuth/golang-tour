@@ -312,7 +312,7 @@ func AddMoreTypes25() func(int) int {
 }
 
 func Test_MoreTypes26(t *testing.T) {
-	fn := FibonacciMoreTypes26()
+	fn := FibonacciCallback()
 
 	a := make([]int, 10)
 	for i := 0; i < 10; i++ {
@@ -320,26 +320,4 @@ func Test_MoreTypes26(t *testing.T) {
 	}
 
 	assert.Equal(t, []int{0, 1, 1, 2, 3, 5, 8, 13, 21, 34}, a)
-}
-
-func FibonacciMoreTypes26() func() int {
-	n := 0
-	fn2 := 0
-	fn1 := 1
-
-	return func() int {
-		var fn int
-		switch n {
-		case 0:
-			fn = fn2
-		case 1:
-			fn = fn1
-		default:
-			fn = fn2 + fn1
-			fn2 = fn1
-			fn1 = fn
-		}
-		n++
-		return fn
-	}
 }
