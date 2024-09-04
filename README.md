@@ -1,4 +1,4 @@
-# Go :: Template
+# Go :: Tour
 
 [![Go](https://github.com/cbismuth/golang-tour/actions/workflows/go.yaml/badge.svg)](https://github.com/cbismuth/golang-tour/actions/workflows/go.yaml)
 
