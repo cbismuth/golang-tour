@@ -4,6 +4,8 @@
 
 Here is my pretty own repository to hack and learn from the Go [Tour](https://go.dev/tour).
 
+See local setup and build steps in [golang-tour](https://github.com/cbismuth/golang-tour) repository.
+
 ## Unit tests
 
 * [Welcome](src/tour_01_welcome_test.go) (see playground [here](https://go.dev/tour/welcome/1))
@@ -17,37 +19,6 @@ Here is my pretty own repository to hack and learn from the Go [Tour](https://go
 ### Utilities
 
 See [tour_utils.go](src/tour_utils.go) for miscellaneous utilities: types, random generators, floating-point, deep copying ...
-
-## Go local setup
-
-Here is a sample Apple macOS setup with [Homebrew](https://brew.sh):
-
-```bash
-# Install Homebrew Apple macOS package manager
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Install Go utilities with Homebrew
-brew install bazelisk bazel go gopls delve
-
-# Export Go environment variables
-export GOPATH="${HOME}/.go" # Default is "${HOME}/go"
-export GOROOT="$(brew --prefix golang)/libexec"
-export PATH="${PATH}:${GOPATH}/bin:${GOROOT}/bin"
-
-# Create Go source directory
-mkdir -p "${GOPATH}/src"
-```
-
-## How to build
-
-* A sample [build.sh](build.sh) Bash scripts is available to ease local build,
-* GitHub action is available in [go.yaml](.github/workflows/go.yaml) to ease automated remote Continuous Integration.
-
-In short:
-
-* [Bazelisk](https://github.com/bazelbuild/bazelisk) is a wrapper for Bazel written in Go,
-* [Bazel](https://bazel.build) is a build tool for multi-language and multi-platform projects,
-* [Gazelle](https://github.com/bazelbuild/bazel-gazelle) is a Go build file generator.
 
 ## Credits
 
