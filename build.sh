@@ -36,7 +36,7 @@ log "Formatting Go files ..."
 goimports -l -w .
 
 log "Building all targets ..."
-bazelisk build --disk_cache="${HOME}/.cache/bazel" //...
+bazelisk build //...
 
 log "Testing all targets ..."
 bazelisk test //... --test_output=all
