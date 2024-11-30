@@ -4,7 +4,7 @@
 
 Here is my pretty own repository to hack and learn from the Go [Tour](https://go.dev/tour).
 
-See local setup and build steps in [golang-tour](https://github.com/cbismuth/golang-tour) repository.
+See local setup and build steps in [golang-template](https://github.com/cbismuth/golang-template) repository.
 
 ## Unit tests
 
